@@ -3,7 +3,6 @@ package com.ishwor.expenses.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,7 +16,8 @@ import java.time.LocalDate;
 @Table(name = "expenses")
 public class Expense {
     @Id
-    @ColumnDefault("nextval('expenses_id_seq')")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "expenses_seq")
+    @SequenceGenerator(name = "expenses_seq", sequenceName = "expenses_id_seq", allocationSize = 1) // ✅ Ensure ID auto-generation
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -37,15 +37,12 @@ public class Expense {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ColumnDefault("CURRENT_DATE")
     @Column(name = "expense_date")
-    private LocalDate expenseDate;
+    private LocalDate expenseDate = LocalDate.now(); // ✅ Default to current date
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt = Instant.now(); // ✅ Set default on creation
 
     @Column(name = "updated_at")
     private Instant updatedAt;
-
 }

@@ -1,9 +1,6 @@
 package com.ishwor.expenses.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -16,7 +13,8 @@ import java.time.Instant;
 @Table(name = "categories")
 public class Category {
     @Id
-    @ColumnDefault("nextval('categories_id_seq')")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categories_seq")
+    @SequenceGenerator(name = "categories_seq", sequenceName = "categories_id_seq", allocationSize = 1) // ✅ Ensure ID is generated correctly
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -26,11 +24,10 @@ public class Category {
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
+    private Instant createdAt = Instant.now();
 
     @Column(name = "updated_at")
     private Instant updatedAt;
-
 }
