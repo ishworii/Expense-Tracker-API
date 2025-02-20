@@ -38,10 +38,10 @@ public class Expense {
     private User user;
 
     @Column(name = "expense_date")
-    private LocalDate expenseDate = LocalDate.now(); // ✅ Default to current date
+    private LocalDate expenseDate = LocalDate.now();
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt = Instant.now(); // ✅ Set default on creation
+    private Instant createdAt = Instant.now();
 
     @Column(name = "updated_at")
     private Instant updatedAt;
