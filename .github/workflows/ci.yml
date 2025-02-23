@@ -69,8 +69,8 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker-compose up -d
+          docker compose up -d
           sleep 30  # Wait for services to start
-          docker-compose ps
-          docker-compose logs
-          docker-compose down
+          docker compose ps
+          docker compose logs
+          docker compose down
