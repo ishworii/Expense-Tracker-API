@@ -175,7 +175,7 @@ GitHub Actions workflow is configured for:
 5. Create a Pull Request
 
 ## Future Enhancements
-
+- [ ] Add kubernets
 - [ ] Add authentication with JWT
 - [ ] Implement role-based authorization
 - [ ] Add expense statistics and reporting
